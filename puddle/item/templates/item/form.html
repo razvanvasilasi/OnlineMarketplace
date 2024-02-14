@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+    <div class="container bg-light my-5" >
+        <h1>{{title}}</h1>
+        <br>
+        <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <br>
+                {{form.category}}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <br>
+                {{form.name}}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <br>
+                {{form.description}}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <br>
+                {{form.price}}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Image</label>
+                <br>
+                {{form.image}}
+            </div>
+            <div class="mb-3">
+                {% for field in form %}
+                    {% if field.errors %}
+                        {{field.errors}}
+                    {% endif %}
+        {% endfor %}
+            </div>
+            <button class="px-3 mx-1 btn btn-success btn-lg fw-medium">Create Item</button>
+        </form>
+    </div>
+{% endblock %}

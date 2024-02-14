@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{item.name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-7 card mx-1 my-1">
+            <img class="rounded-xl" src="{{item.image.url}}" alt="img">
+        </div>
+        <div class="col card mx-1 my-1">
+            <div class="card-body">
+                <br>
+                <h2>{{item.name}}</h2>
+                <br>
+                <p class="text-secondary"><strong>Price: </strong>{{item.price}}</p>
+                <p class="text-secondary"><strong>Seller: </strong>{{item.created_by.username}}</p>
+                {% if item.description %}
+                    <p class="text-secondary"><strong>Description:</strong></p>
+                    <p class="text-secondary">{{item.description}}</p>
+                {% endif %}
+                <p class="text-secondary fs-6"><Strong>Posted at: </Strong>{{item.created_at}}</p>
+                <br>
+                {% if request.user == item.created_by %}
+                  <a href="#" class="px-3 mx-1 my-1 btn btn-warning btn-lg fw-medium text-white">Edit</a>
+                  <a href="{% url 'delete' item.id %}" class="px-3 mx-1 my-1 btn btn-danger btn-lg fw-medium">Delete</a>
+                {% else %}
+                  <a href="#" class="px-3 mx-1 btn btn-success btn-lg fw-medium">Contact Seller</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h2 class="text-center">Related Items</h2>
+    <div class="row">
+        {% for item in related_items %}
+          <div class="card mx-1 my-2 py-1" style="width: 14rem;height: auto;">
+            <a href="{% url 'detail' item.id %}" class="text-decoration-none text-dark">
+              <img src="{{item.image.url}}" class="card-img-top" alt="img" style="width: 12rem; height: 12rem;">
+              <div class="card-body-bottom">
+                <p class="card-text"><h3>{{item.name}}</h3></p>
+                <p class="card-text text-secondary">Price: {{item.price}}</p>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+    </div>
+    <br>
+</div>
+
+
+{% endblock %}

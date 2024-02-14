@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container bg-light my-5" style="width: 500;">
+    <form method="post" action=".">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <br>
+            {{form.username}}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <br>
+            {{form.password}}
+        </div>
+        <div class="mb-3">
+            {% for field in form %}
+                {% if field.errors %}
+                    {{field.errors}}
+                {% endif %}
+    {% endfor %}
+        </div>
+        <button class="px-3 mx-1 btn btn-success btn-lg fw-medium">Login</button>
+    </form>
+</div>
+{% endblock %}

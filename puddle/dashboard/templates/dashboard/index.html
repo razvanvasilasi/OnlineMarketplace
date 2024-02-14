@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% block title%}{{request.user}}'s Dashboard{% endblock%}
+{% block content %}
+    <br>
+    <h1 class="text-center">{{request.user}}'s Dashboard</h1>
+    <br>
+    <div class=" my-1 container bg-light rounded">
+        <h2 class="">My Items</h2>
+        <div class="row">
+            {% for item in items %}
+              <div class="card mx-1 my-2 py-1" style="width: 18rem;height: auto;">
+                <a href="{% url 'detail' item.id %}" class="text-decoration-none text-dark">
+                  <img src="{{item.image.url}}" class="card-img-top" alt="img" style="width: 16rem; height: 16rem;">
+                  <div class="card-body-bottom">
+                    <p class="card-text"><h3>{{item.name}}</h3></p>
+                    <p class="card-text text-secondary">Price: {{item.price}}</p>
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div>
+    <br>
+    <div class="my-1 container bg-light rounded">
+        <div class="row">
+            <p><h2 class="text-center">Categories</h2></p>
+            {% for category in categories %}
+            <div class="card mx-1 my-2 py-1" style="width: 18rem;height: auto;">
+                <div class="card-body-bottom">
+                  <p class="card-text"><h3>{{category.name}}</h3></p>
+                  <p class="card-text text-secondary">{{category.items.count}} items</p>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div>
+{% endblock %}

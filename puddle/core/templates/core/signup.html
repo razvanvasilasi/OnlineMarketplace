@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="container bg-light my-5" style="width: 500;">
+    <form method="post" action=".">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <br>
+            {{form.username}}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <br>
+            {{form.email}}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <br>
+            {{form.password1}}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Confirm Password</label>
+            <br>
+            {{form.password2}}
+        </div>
+        <div class="mb-3">
+            {% for field in form %}
+                {% if field.errors %}
+                    {{field.errors}}
+                {% endif %}
+    {% endfor %}
+        </div>
+        <button class="px-3 mx-1 btn btn-success btn-lg fw-medium">Submit</button>
+    </form>
+</div>
+{% endblock %}
